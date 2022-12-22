@@ -4,23 +4,24 @@ from django.shortcuts import render
 # Add the following import
 from django.http import HttpResponse
 
+from .models import Finch
 # Define the home view
 
 
-class Finch:
-    def __init__(self, name, breed, sound, age):
-        self.name = name
-        self.breed = breed
-        self.sound = sound
-        self.age = age
+# class Finch:
+#     def __init__(self, name, breed, sound, age):
+#         self.name = name
+#         self.breed = breed
+#         self.sound = sound
+#         self.age = age
 
 
 # This the array, we are injecting into the template
-finches = [
-    Finch('Geospiza magnirostris', 'brown', 'chirp chirp', 1),
-    Finch('Geospiza fortis', 'black', 'chirp chirp', 2),
-    Finch('Geospiza fuliginosa', 'red', 'chirp chirp', 3)
-]
+# finches = [
+#     Finch('Geospiza magnirostris', 'brown', 'chirp chirp', 1),
+#     Finch('Geospiza fortis', 'gray', 'chirp chirp', 2),
+#     Finch('Geospiza fuliginosa', 'spotted gray', 'chirp chirp', 3)
+# ]
 
 
 def home(request):
@@ -33,4 +34,5 @@ def about(request):
 
 
 def finches_index(request):
+    finches = Finch.objects.all()
     return render(request, 'finches/index.html', {'finches': finches})
