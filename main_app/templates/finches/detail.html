@@ -6,7 +6,7 @@
   <div class="card-content">
     <span class="card-title">{{ finch.name }}</span>
     <p>Type: {{ finch.breed }}</p>
-    <p>Sound: {{ finch.sound }}</p>
+    <p>Color: {{ finch.color }}</p>
     {% if finch.age > 2 %}
     <p>Age: {{ finch.age }}</p>
     {% else %}
@@ -40,6 +40,47 @@
     </tbody>
   </table>
   {% endblock %}
+</div>
+<hr />
+<div class="row">
+  <div class="col s6">
+    <h3>{{ finch.name }}'s Wings</h3>
+    {% if finch.wings.count %} {% for wing in finch.wings.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A <span style="color: {{ wing.color }}">{{ wing.color }}</span> {{
+          wing.name }}
+        </span>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>No Wings! Poor bird.</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Current Finch Wings</h3>
+    {% if wings.count %}
+      {% for wing in wings.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ wing.color }}">{{ wing.color }}</span> {{ wing.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_wing' finch.id wing.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{finch.name}} Is a nice finch with lots of winged feathers!</h5>
+    {% endif %}
+  </div>
+</div>
 </div>
 <script>
   const dateEl = document.getElementById("id_date");

@@ -4,8 +4,9 @@ from django.shortcuts import render, redirect
 # Add the following import
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 
-from .models import Finch
+from .models import Finch, Wing
 from .forms import FeedingForm
 
 # Define the home view
@@ -51,9 +52,11 @@ def finches_index(request):
 
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
+    wings_finch_doesnt_have = Wing.objects.exclude(
+        id__in=finch.wings.all().values_list('id'))
     feeding_form = FeedingForm()
 
-    return render(request, 'finches/detail.html', {'finch': finch, 'feeding_form': feeding_form})
+    return render(request, 'finches/detail.html', {'finch': finch, 'feeding_form': feeding_form, 'wings': wings_finch_doesnt_have})
 
 
 class FinchCreate(CreateView):
@@ -70,3 +73,31 @@ class FinchUpdate(UpdateView):
 class FinchDelete(DeleteView):
     model = Finch
     success_url = '/finches/'
+
+
+class WingList(ListView):
+    model = Wing
+
+
+class WingDetail(DetailView):
+    model = Wing
+
+
+class WingCreate(CreateView):
+    model = Wing
+    fields = ['name', 'color']
+
+
+class WingUpdate(UpdateView):
+    model = Wing
+    fields = ['name', 'color']
+
+
+class WingDelete(DeleteView):
+    model = Wing
+    success_url = '/wings/'
+
+
+def assoc_wing(request, finch_id, wing_id):
+    Finch.objects.get(id=finch_id).wings.add(finch_id)
+    return redirect('detail', finch_id=finch_id)

@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Wing List</h1>
+
+{% for wing in wing_list %}
+<a href="{% url 'wings_detail' wing.id %}">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ wing.name }}</span>
+      <p>Color: {{ wing.color }}</p>
+    </div>
+  </div>
+</a>
+{% endfor %} {% endblock %}

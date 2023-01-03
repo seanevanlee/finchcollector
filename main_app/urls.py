@@ -27,4 +27,11 @@ urlpatterns = [
          views.FinchDelete.as_view(), name='finches_delete'),
     path('finches/<int:finch_id>/add_feeding/',
          views.add_feeding, name='add_feeding'),
+    path('finches/<int:finch_id>/assoc_wing/<int:wing_id>/',
+         views.assoc_wing, name='assoc_wing'),
+    path('wings/', views.WingList.as_view(), name='wings_index'),
+    path('wings/<int:pk>/', views.WingDetail.as_view(), name='wings_detail'),
+    path('wings/create/', views.WingCreate.as_view(), name='wings_create'),
+    path('wings/<int:pk>/update/', views.WingUpdate.as_view(), name='wings_update'),
+    path('wings/<int:pk>/delete/', views.WingDelete.as_view(), name='wings_delete'),
 ]

@@ -4,11 +4,23 @@ from django.urls import reverse
 # Create your models here.
 
 
+class Wing(models.Model):
+    name = models.CharField(max_length=40)
+    color = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('wings_detail', kwargs={'pk': self.id})
+
+
 class Finch(models.Model):
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     age = models.IntegerField()
+    wings = models.ManyToManyField(Wing)
 
     def __str__(self):
         return self.name
