@@ -30,15 +30,15 @@ class Finch(models.Model):
 
 
 MEALS = (
-    ('B', 'Breakfast'),
-    ('L', 'Lunch'),
-    ('D', 'Dinner')
+    ('M', 'Morning'),
+    ('A', 'Afternoon'),
+    ('N', 'Night')
 )
 
 
 class Feeding(models.Model):
     date = models.DateField('When did the bird eat?')
-    meal = models.CharField(max_length=1,
+    meal = models.CharField(max_length=10,
                             choices=MEALS,
                             default=MEALS[0][0])
     finch = models.ForeignKey(Finch, on_delete=models.CASCADE)

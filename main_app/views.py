@@ -37,7 +37,7 @@ def add_feeding(request, finch_id):
 
 
 def home(request):
-    return HttpResponse('<h1>It is finching time!</h1>')
+    # return HttpResponse('<h1>It is finching time!</h1>')
     return render(request, 'home.html')
 
 

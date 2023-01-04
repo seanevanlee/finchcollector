@@ -5,7 +5,7 @@
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ finch.name }}</span>
-    <p>Type: {{ finch.breed }}</p>
+    <p>Description: {{ finch.description }}</p>
     <p>Color: {{ finch.color }}</p>
     {% if finch.age > 2 %}
     <p>Age: {{ finch.age }}</p>
@@ -39,7 +39,6 @@
       {% endfor %}
     </tbody>
   </table>
-  {% endblock %}
 </div>
 <hr />
 <div class="row">
@@ -49,13 +48,13 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          A <span style="color: {{ wing.color }}">{{ wing.color }}</span> {{
+          A <span>{{ wing.color }}</span> {{
           wing.name }}
         </span>
       </div>
     </div>
     {% endfor %} {% else %}
-    <h5>No Wings! Poor bird.</h5>
+    <h5>No Wings! Poor bird. Pick a wing to add on from the options.</h5>
     {% endif %}
   </div>
   <div class="col s6">
@@ -65,7 +64,7 @@
         <div class="card">
           <div class="card-content">
             <span class="card-title">
-              A <span style="color: {{ wing.color }}">{{ wing.color }}</span> {{ wing.name }}
+              A <span>{{ wing.color }}</span> {{ wing.name }}
             </span>
           </div>
           <div class="card-action">
@@ -82,6 +81,8 @@
   </div>
 </div>
 </div>
+{% endblock %}
+
 <script>
   const dateEl = document.getElementById("id_date");
   M.Datepicker.init(dateEl, {
